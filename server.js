@@ -3,7 +3,13 @@ const app = express();
 
 const { notes } = require('./Develop/db/db.json');
 
-
+function filterByQuery (query, notesArray) {
+    let filteredResults = notesArray;
+    if (query.title) {
+        filteredResults = filteredResults.filter(note => note.title === query.title);
+    }
+    return filteredResults;
+}
 
 
 
@@ -15,7 +21,11 @@ const { notes } = require('./Develop/db/db.json');
 
 
 app.get('/api/notes', (req, res) => {
-    res.send('Hello!');
+    let results = notes;
+    if (req.query) {
+        results = filterByQuery(req.query, results);
+    }
+    res.json(results);
 });
 
 
