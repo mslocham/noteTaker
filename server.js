@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const PORT = process.env.PORT || 3003;
 const app = express();
-app.use(express.static('public'));
+app.use(express.static('./Develop/public'));
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
@@ -45,11 +45,7 @@ function validateNote(note) {
     return true;
 }
 
-
-
-
 app.get('/api/notes', (req, res) => {
-    console.log("getting notes");
     let results = notes;
     if (req.query) {
         results = filterByQuery(req.query, results);
@@ -84,7 +80,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/notes', (req, res) => {
-    
     res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
 });
 
