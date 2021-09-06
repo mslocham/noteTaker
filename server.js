@@ -49,6 +49,7 @@ function validateNote(note) {
 
 
 app.get('/api/notes', (req, res) => {
+    console.log("getting notes");
     let results = notes;
     if (req.query) {
         results = filterByQuery(req.query, results);
@@ -66,6 +67,7 @@ app.get('/api/notes/:id', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
+    
     // set id based on what the next index of the array will be
   req.body.id = notes.length.toString();
   // if any data in req.body is incorrect, send 400 error back
@@ -79,16 +81,17 @@ app.post('/api/notes', (req, res) => {
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './Develop/public/index.html'));
-  });
+});
 
 app.get('/notes', (req, res) => {
+    
     res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
 });
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './Develop/public/index.html'));
-  });
+});
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
-  });
+});
